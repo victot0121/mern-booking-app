@@ -2,6 +2,8 @@ import 'dotenv/config';
 import express, { Request, Response } from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
+import  userRoutes from "./routes/users";
+import  authRoutes from "./routes/auth"
 
 
 mongoose.connect(process.env.MONGODB_CONNECTION_STRING as string);
@@ -11,9 +13,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 
-app.get("/app/test", async (req: Request, res: Response) => {
-  res.json({ message: "hello from express endpoint! go ball bro guy !!!!!!!!!!!!!" });
-});
+ app.use("/api/users", userRoutes)
+ app.use("/api/auth", authRoutes)
 
 app.listen(7000, () => {
   console.log("server running on localhost:7000");
