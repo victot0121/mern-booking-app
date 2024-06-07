@@ -33,7 +33,7 @@ const Register = () => {
         },
         onError: (error: Error) => {
             showToast({ message: error.message, type: "ERROR" })
-        } 
+        }
     })
 
 
@@ -55,9 +55,9 @@ const Register = () => {
 
 
     return (
-        <form className='flex flex-col gap-5 ' onSubmit={onSumbit}>
+        <form className='flex flex-col gap-5 mx-12 ' onSubmit={onSumbit}>
             <h2 className='text-3xl font-bold font-Lora mt-9'>Create Account</h2>
-            <div className="flex flex-col md:flex-row gap-5">
+            <div className="flex flex-col md:flex-row gap-5 ">
                 <label htmlFor="" className='text-gray-700 text-sm font-bold  font-Lora'>
                     First Name
                     <input className=" border-b rounded w-full py-1 px-2 font-normal flex-1 focus:outline-none"
