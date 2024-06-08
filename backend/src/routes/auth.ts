@@ -3,7 +3,7 @@ import express, { Request, Response } from "express";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { check, validationResult } from "express-validator";
-import verifyToken from "../middleware/auth"; 
+import verifyToken from "../middleware/auth";
 import User from "../models/users";
 
 const router = express.Router();
@@ -30,15 +30,15 @@ check("password", "password is required and most be more than 8 characters").isL
 
         const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET_KEY as string, {
             expiresIn: '1d',
-          });
+        });
 
-       res.cookie("auth_token", token,{
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "Production",
-        maxAge: 86400000,
-       })
+        res.cookie("auth_token", token, {
+            httpOnly: true,
+            secure: process.env.NODE_ENV === "Production",
+            maxAge: 86400000,
+        })
 
-        res.status(200).json({userId: user._id})
+        res.status(200).json({ userId: user._id })
     } catch {
         console.log(errors)
         res.status(500).json({ message: "something went wrong" })
@@ -48,9 +48,17 @@ check("password", "password is required and most be more than 8 characters").isL
 )
 
 
-router.get("/validate-token", verifyToken, (req: Request, res: Response)=>{
-    res.status(200).send({userId: req.userId})
+router.get("/validate-token", verifyToken, (req: Request, res: Response) => {
+    res.status(200).send({ userId: req.userId })
+})
+
+router.post("/logout", (req: Request, res: Response) => {
+    res.cookie("auth_token", "", {
+        expires: new Date(0),
+    })
+    res.send()
 })
 
 
-export default  router
+
+export default router

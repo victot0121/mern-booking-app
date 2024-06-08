@@ -1,9 +1,10 @@
 
-import { Link } from "react-router-dom"
-import { useAppContext } from "../context/AppContext"
+import { Link } from "react-router-dom";
+import { useAppContext } from "../context/AppContext";
+import SignOutButton from "./SignOutButton";
 
 const Header = () => {
-    const { isLoggedIn } = useAppContext()
+    const { isLoggedIn } = useAppContext();
 
     return (
         <div className="bg-blue-500 p-6">
@@ -12,23 +13,23 @@ const Header = () => {
                     <Link to="/">JOYHOLIDAY🌻☀️🏚️</Link>
                 </span>
                 <span className="flex space-x-2">
-                    {!isLoggedIn ? <>
-
-                        <Link to="/register" className="flex items-center bg-white text-blue-500 px-3 cursor-pointer font-Lora font-bold rounded-md hover:bg-white-300 hover:text-blue-300">
-                            Sign up
-                        </Link>
-                    </> : <>
-
-                        <Link to="/my-booking">My Booking</Link>
-                        <Link to="my-hotels">My Hotels</Link>
-                        <button>Sign out</button>
-
-                    </>}
-
+                    {isLoggedIn ? (
+                        <>
+                            <Link to="/my-booking">My Booking</Link>
+                            <Link to="/my-hotels">My Hotels</Link>
+                            <SignOutButton />
+                        </>
+                    ) : (
+                        <>
+                            <Link to="/register" className="flex items-center bg-white text-blue-500 px-3 cursor-pointer font-Lora font-bold rounded-md hover:bg-white-300 hover:text-blue-300">
+                                Sign up
+                            </Link>
+                        </>
+                    )}
                 </span>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default Header
+export default Header;

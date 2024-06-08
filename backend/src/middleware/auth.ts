@@ -1,8 +1,8 @@
-import { NextFunction , Request, Response } from "express-serve-static-core";
-import jwt, { JwtPayload }  from "jsonwebtoken";
+import { NextFunction, Request, Response } from "express-serve-static-core";
+import jwt, { JwtPayload } from "jsonwebtoken";
 
 
-declare global{
+declare global {
     namespace Express {
         interface Request {
             userId: string;
@@ -11,20 +11,20 @@ declare global{
 }
 
 
-const  verifyToken = (req: Request,res: Response, next: NextFunction) => {
+const verifyToken = (req: Request, res: Response, next: NextFunction) => {
     const token = req.cookies["auth_token"]
 
-    if(!token){
-        return res.status(401).json({message: "unauthorized"});
+    if (!token) {
+        return res.status(401).json({ message: "unauthorized" });
     }
 
-    try{
-       const decode  = jwt.verify(token, process.env.WT_SECRET_KEY as string)
-       req.userId = (decode as JwtPayload).userId;
-       next();
+    try {
+        const decode = jwt.verify(token, process.env.WT_SECRET_KEY as string)
+        req.userId = (decode as JwtPayload).userId;
+        next();
 
-    }catch(error){
-        return res.status(401).json({message: "unauthorized"});
+    } catch (error) {
+        return res.status(401).json({ message: "unauthorized" });
     }
 }
 
