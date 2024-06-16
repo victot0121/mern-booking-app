@@ -71,7 +71,7 @@ export const AppContextProvider = ({ children }: { children: React.ReactNode }) 
     const [toast, setToast] = useState<ToastMessage | undefined>(undefined);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-    const { data, error, isLoading } = useQuery("validateToken", apiClient.validateToken, {
+    const { isLoading } = useQuery("validateToken", apiClient.validateToken, {
         retry: false,
         onSuccess: () => {
             console.log("Token is valid, user is logged in");
